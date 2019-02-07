@@ -176,18 +176,57 @@ See [here](ssh.md) for different types of SSH connection with respect to your OS
 
 1. What is the ``grep``command?
 
+The grep command returns the lines of a text file with a given pattern.
+
 2. What is the meaning of ``#!/bin/python`` at the start of scripts?
 
-3. Download using ``wget`` the [*bsds500*](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/resources.html#bsds500) image segmentation database, and decompress it using ``tar`` (keep it in you hard drive, we will come back over this data in a few weeks).
+Is the initial line of all executable files in bash. IT tells the computer in which language should be read the script.
+
+3. Download using ``wget`` the [*bsds500*](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/resources.html#bsds500) image segmentation database, and decompress it using
+``tar`` (keep it in you hard drive, we will come back over this data in a few weeks).
+
+```bash
+wget http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/BSR/BSR_bsds500.tgz
+tar -xzvf BSR_bsds500.tgz
+```
+![Screenshot 1](Captura.PNG)
  
 4. What is the disk size of the uncompressed dataset, How many images are in the directory 'BSR/BSDS500/data/images'?
+
+
+The uncompressed directory BSR has a size of 73 MB. There are 500 images in the specified directory.
+```bash
+ du -h BSR/
+ find -name  '*.jpg' | wc -l
+```
+![ScreenShot 2](Captura2.PNG)
  
 5. What are all the different resolutions? What is their format? Tip: use ``awk``, ``sort``, ``uniq`` 
 
+There are two resolutions 321x481 and 481x321. All the images are in JEPG format
+
+```bash
+identify */* | awk '{split($0, a, " "); print(a[3])}' | sort  | uniq
+identify */* | awk '{split($0, a, " "); print(a[2])}' | sort  | uniq
+```
+![Screenshot3](Captura3.PNG)
+
 6. How many of them are in *landscape* orientation (opposed to *portrait*)? Tip: use ``awk`` and ``cut``
+
+There are 152 images in 321x481 (Portrait) resolution and 348 in 481x321 (Landscape) resolution.
+
+ 
+```bash
+identify */* | awk '{split($0, a, " "); print(a[3])}' | sort  | uniq -c
+```
+ ![Screenshot5](Captura5.PNG)
  
 7. Crop all images to make them square (256x256) and save them in a different folder. Tip: do not forget about  [imagemagick](http://www.imagemagick.org/script/index.php).
 
+```bash
+find -name '*.jpg' | xargs mogrify -crop 256x256+0+0  -path ImagesR/
+```
+![Screenshot6](Captura6.PNG)
 
 # Report
 

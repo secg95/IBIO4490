@@ -9,3 +9,9 @@ solution/
 _data/
 *.pyc
 .ipynb*
+<<<<<<< HEAD
+/05-Textons/cifar-10-batches-py/
+/05-Textons/train.npy
+/05-Textons/randomForest.pickle
+=======
+>>>>>>> parent of d6abb56... lab textones
